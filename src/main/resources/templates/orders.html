@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<div th:replace="menu"></div>
+<div class="col-md-offset-2 col-sm-8">
+    <h2>Orders</h2>
+    <form method="get">
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">ID</th>
+                <th scope="col">Date</th>
+                <th scope="col">Sum</th>
+                <th scope="col">Status</th>
+                <th scope="col" colspan="2">Operations</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order, iStat: ${orders}">
+                <th scope="row" th:text="${iStat.index + 1}"/>
+                <td th:text="${order.id}"/>
+                <td th:text="${order.date}"/>
+                <td th:text="${order.sum}"/>
+                <td th:text="${order.orderStatus}"/>
+
+                <td>
+                    <a th:href="@{|/orders/${order.id}/edit|}">Edit</a>
+                </td>
+
+                <td>
+                    <a th:href="@{|/orders/${order.id}/delete|}">Remove</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<div th:replace="menu"></div>
+
+<div class="page-title">Cart</div>
+
+<th:block th:if="${cartForm == null || cartForm.productList == null || cartForm.productList.empty}">
+    <h2>There is no items in Cart</h2>
+    <a th:href="@{/products/all}">Show Product List</a>
+</th:block>
+
+<th:block th:if="${cartForm != null && cartForm.productList != null && !cartForm.productList.empty}">
+
+
+        <div
+             th:each="product, varStatus : ${cartForm.productList}">
+            <ul>
+                <li><img class="product-image"
+                         th:src="@{|/productImage?id=${product.id}|}" />
+                </li>
+                <li>Id: <span th:utext="${product.id}"></span></li>
+                <li>Name: <span th:utext="${product.name}"></span></li>
+                <li>Price:
+                    <span class="price"
+                          th:utext="${#numbers.formatDecimal(product.price,3,2,'COMMA')}">
+                        </span>
+                </li>
+
+
+            </ul>
+        </div>
+
+</th:block>
+</body>
+</html>

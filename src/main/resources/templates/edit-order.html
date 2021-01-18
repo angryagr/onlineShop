@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<div th:replace="menu"></div>
+<div class="col-md-offset-2 col-sm-8">
+    <h2>Edit Order</h2>
+    <div>
+        <form class="form-horizontal" method="post" th:object="${order}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="id">ID:</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" th:field="*{id}" id="id" th:value="*{id}" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="date">Date:</label>
+                <div class="col-sm-8">
+                    <input class="form-control" th:field="*{date}" th:value="*{date}" id="date" type="text" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="sum">Sum:</label>
+                <div class="col-sm-8">
+                    <input class="form-control" th:field="*{sum}" th:value="*{sum}" id="sum" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="status">Status:</label>
+                <div class="col-sm-8">
+                    <input class="form-control" th:field="*{orderStatus}" th:value="*{orderStatus}" id="status"
+                           type="text"/>
+                </div>
+            </div>
+            <div class="col-sm-offset-2 col-sm-8">
+                <input class="btn btn-info" type="submit" value="Update"/>
+                <input class="btn btn" type="reset" value="Clear"/>
+            </div>
+            <input type="hidden" name="id" th:value="*{id}">
+
+
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>
