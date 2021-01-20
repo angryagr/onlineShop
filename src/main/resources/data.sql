@@ -12,10 +12,10 @@ INSERT INTO orders (id, order_date, end_sum, order_status, bill_id) VALUES (5, '
 INSERT INTO orders (id, order_date, end_sum, order_status, bill_id) VALUES (7, '2020-09-16', 485.22, 'SHIPPING', 3);
 INSERT INTO orders (id, order_date, end_sum, order_status, bill_id) VALUES (8, '2020-09-17', 487.22, 'DELIVERED', 4);
 
-INSERT INTO products (id, name, price, quantity, description, order_id) VALUES (5, 'Product1', 32.45, 1,'Description1', 6);
-INSERT INTO products (id, name, price, quantity, description, order_id) VALUES (6, 'Product2', 123.55, 2, 'Description2', 5);
-INSERT INTO products (id, name, price, quantity, description, order_id) VALUES (7, 'Product3', 34.56, 4, 'Description3', 7);
-INSERT INTO products (id, name, price, quantity, description, order_id) VALUES (8, 'Product4', 234.45, 7, 'Description4', 8);
+INSERT INTO products (id, name, price, description, order_id) VALUES (5, 'Product1', 32.45,'Description1', 6);
+INSERT INTO products (id, name, price, description, order_id) VALUES (6, 'Product2', 123.55, 'Description2', 5);
+INSERT INTO products (id, name, price, description, order_id) VALUES (7, 'Product3', 34.56, 'Description3', 7);
+INSERT INTO products (id, name, price, description, order_id) VALUES (8, 'Product4', 234.45, 'Description4', 8);
 
 INSERT INTO addresses (id, street, street_number, zip_code, city, country, phone, user_id) VALUES (7, 'Street1', '1a', 12345, 'City1', 'Country1', '+1234567891', 5);
 INSERT INTO addresses (id, street, street_number, zip_code, city, country, phone, user_id) VALUES (4, 'Street2', '2a', 12345, 'City2', 'Country2', '+9876543211', 6);

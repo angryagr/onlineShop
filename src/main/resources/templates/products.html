@@ -14,12 +14,12 @@
         <br>
         <div class="container">
             <div class="row">
-                <div class="col-sm-4" th:each="product: ${products}">
+                <div class="col-sm-4" th:each="product : ${products}">
                     <ul>
                         <li><img th:src="@{|/product.image?id=${product.id}|}"/></li>
                         <li>Code: <span th:utext="${product.id}"></span></li>
                         <li>Name: <span th:utext="${product.name}"></span></li>
-                        <li>Price: <span th:utext="${product.price}"></span></li>
+                        <li>Price: <span th:utext="${#numbers.formatDecimal(product.price,3,2,'COMMA')}"></span></li>
                         <li>Description: <span th:utext="${product.description}"></span></li>
                         <li>
                             <a th:href="@{|/products/${product.id}/buyProduct|}">Buy Now</a>

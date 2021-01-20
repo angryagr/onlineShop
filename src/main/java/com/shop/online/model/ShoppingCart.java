@@ -7,35 +7,49 @@ import java.util.List;
 public class ShoppingCart {
     private long id;
     private User user;
-    private final List<Product> productList = new ArrayList<>();
+    private final List<CartLine> productList = new ArrayList<>();
 
     public ShoppingCart() {
     }
 
+    private CartLine findLineById(long id) {
+        for (CartLine line : this.productList) {
+            if (line.getProduct().getId() == id) {
+                return line;
+            }
+        }
+        return null;
+    }
 
     public void addProduct(Product product, int quantity) {
-        if (!productList.contains(product)) {
-            productList.add(product);
+        CartLine cartLine = findLineById(product.getId());
+        if (cartLine==null) {
+            cartLine = new CartLine();
+            cartLine.setProduct(product);
+            cartLine.setQuantity(0);
+            productList.add(cartLine);
         }
-        product.setQuantity(product.getQuantity() + quantity);
+        int newQuantity = cartLine.getQuantity() + quantity;
 
-        if (product.getQuantity() == 0) {
-            removeProduct(product);
+        if (newQuantity == 0) {
+            removeProduct(cartLine);
+        } else {
+            cartLine.setQuantity(newQuantity);
         }
     }
 
-    public void removeProduct(Product product) {
-        if (productList.contains(product)) {
-            productList.remove(product);
+    public void removeProduct(CartLine cartLine) {
+        if (productList.contains(cartLine)) {
+            productList.remove(cartLine);
         }
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return productList.isEmpty();
     }
 
-    public double getAmountTotal(){
-        return productList.stream().mapToDouble(Product::getAmount).sum();
+    public double getAmountTotal() {
+        return productList.stream().mapToDouble(CartLine::getAmount).sum();
     }
 
     public long getId() {
@@ -54,7 +68,7 @@ public class ShoppingCart {
         this.user = user;
     }
 
-    public List<Product> getProductList() {
+    public List<CartLine> getProductList() {
         return productList;
     }
 

@@ -17,23 +17,24 @@
 </th:block>
 
 <th:block th:if="${cartForm != null && cartForm.productList != null && !cartForm.productList.empty}">
-
-
         <div
-             th:each="product, varStatus : ${cartForm.productList}">
+             th:each="line, varStatus : ${cartForm.productList}">
             <ul>
                 <li><img class="product-image"
-                         th:src="@{|/productImage?id=${product.id}|}" />
+                         th:src="@{|/productImage?id=${line.product.id}|}" />
                 </li>
-                <li>Id: <span th:utext="${product.id}"></span></li>
-                <li>Name: <span th:utext="${product.name}"></span></li>
+                <li>Id: <span th:utext="${line.product.id}"></span></li>
+                <li>Name: <span th:utext="${line.product.name}"></span></li>
+                <li>Quantity:
+                    <input
+                            th:name="|productList[${varStatus.index}].quantity|"
+                            th:value="${line.quantity}" />
+                </li>
                 <li>Price:
                     <span class="price"
-                          th:utext="${#numbers.formatDecimal(product.price,3,2,'COMMA')}">
+                          th:utext="${#numbers.formatDecimal(line.product.price,3,2,'COMMA')}">
                         </span>
                 </li>
-
-
             </ul>
         </div>
 

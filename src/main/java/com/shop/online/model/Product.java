@@ -1,7 +1,6 @@
 package com.shop.online.model;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
@@ -17,17 +16,11 @@ public class Product {
     private byte[] image;
     @Column(name = "price", nullable = false)
     private double price;
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
     @Column(name = "description", nullable = true)
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
-
-    public double getAmount() {
-        return getPrice() * quantity;
-    }
 
     public long getId() {
         return id;
@@ -51,14 +44,6 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getDescription() {
@@ -92,17 +77,12 @@ public class Product {
         Product product = (Product) o;
         return id == product.id &&
                 Double.compare(product.price, price) == 0 &&
-                quantity == product.quantity &&
                 Objects.equals(name, product.name) &&
-                Arrays.equals(image, product.image) &&
-                Objects.equals(description, product.description) &&
-                Objects.equals(order, product.order);
+                Objects.equals(description, product.description);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, name, price, quantity, description, order);
-        result = 31 * result + Arrays.hashCode(image);
-        return result;
+        return Objects.hash(id, name, price, description);
     }
 }
