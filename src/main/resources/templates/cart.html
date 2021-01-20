@@ -35,6 +35,11 @@
                           th:utext="${#numbers.formatDecimal(line.product.price,3,2,'COMMA')}">
                         </span>
                 </li>
+                <li>
+                    <a th:href="@{|/products/${line.product.id}/remove|}">
+                        Delete
+                    </a>
+                </li>
             </ul>
         </div>
 

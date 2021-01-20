@@ -32,16 +32,17 @@ public class ShoppingCart {
         int newQuantity = cartLine.getQuantity() + quantity;
 
         if (newQuantity == 0) {
-            removeProduct(cartLine);
+            removeProduct(product);
         } else {
             cartLine.setQuantity(newQuantity);
         }
     }
 
-    public void removeProduct(CartLine cartLine) {
-        if (productList.contains(cartLine)) {
-            productList.remove(cartLine);
-        }
+    public void removeProduct(Product product) {
+       CartLine cartLine = findLineById(product.getId());
+       if(cartLine!=null) {
+           productList.remove(cartLine);
+       }
     }
 
     public boolean isEmpty() {

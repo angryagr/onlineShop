@@ -26,7 +26,7 @@ public class ProductController {
         return "products";
     }
 
-    @GetMapping({"/{id}/buyProduct"})
+    @GetMapping({"/{id}/buy"})
     public String buyProduct(@PathVariable long id, HttpServletRequest request, Model model) {
         Product product = productService.readById(id);
 
@@ -39,9 +39,13 @@ public class ProductController {
         return "redirect:/cart/show";
     }
 
-    @GetMapping({"/{id}/delete"})
-    public String deleteProduct(@PathVariable long id) {
-        productService.delete(id);
-        return "redirect:/products/all";
+    @GetMapping({"/{id}/remove"})
+    public String deleteProduct(@PathVariable long id, HttpServletRequest request) {
+        Product product = productService.readById(id);
+        if (product != null) {
+            ShoppingCart cart = Utils.getCartInSession(request);
+            cart.removeProduct(product);
+        }
+            return "redirect:/cart/show";
+        }
     }
-}
