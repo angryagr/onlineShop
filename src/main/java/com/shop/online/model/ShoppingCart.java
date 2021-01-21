@@ -27,6 +27,7 @@ public class ShoppingCart {
             cartLine = new CartLine();
             cartLine.setProduct(product);
             cartLine.setQuantity(0);
+            cartLine.setPrice(product.getPrice());
             productList.add(cartLine);
         }
         int newQuantity = cartLine.getQuantity() + quantity;
@@ -35,6 +36,7 @@ public class ShoppingCart {
             removeProduct(product);
         } else {
             cartLine.setQuantity(newQuantity);
+            cartLine.setPrice(product.getPrice()*newQuantity);
         }
     }
 

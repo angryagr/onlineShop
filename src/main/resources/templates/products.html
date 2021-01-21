@@ -8,7 +8,7 @@
 <body>
 <div th:replace="header"></div>
 <div th:replace="menu"></div>
-<div class="col-md-offset-2 col-sm-8">
+<div class="col-sm-4">
     <h2>Products</h2>
     <form method="get">
         <br>
@@ -22,7 +22,7 @@
                         <li>Price: <span th:utext="${#numbers.formatDecimal(product.price,3,2,'COMMA')}"></span></li>
                         <li>Description: <span th:utext="${product.description}"></span></li>
                         <li>
-                            <a th:href="@{|/products/${product.id}/buy|}">Buy Now</a>
+                            <a th:href="@{|/products/src/main/resources/templates/products.html|}">Buy Now</a>
                         </li>
                     </ul>
                 </div>

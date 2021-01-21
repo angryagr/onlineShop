@@ -9,7 +9,7 @@
 <div th:replace="header"></div>
 <div th:replace="menu"></div>
 
-<div class="page-title">Cart</div>
+<h2>Cart</h2>
 
 <th:block th:if="${cartForm == null || cartForm.productList == null || cartForm.productList.empty}">
     <h2>There is no items in Cart</h2>
@@ -17,31 +17,32 @@
 </th:block>
 
 <th:block th:if="${cartForm != null && cartForm.productList != null && !cartForm.productList.empty}">
-        <div
-             th:each="line, varStatus : ${cartForm.productList}">
-            <ul>
-                <li><img class="product-image"
-                         th:src="@{|/productImage?id=${line.product.id}|}" />
-                </li>
-                <li>Id: <span th:utext="${line.product.id}"></span></li>
-                <li>Name: <span th:utext="${line.product.name}"></span></li>
-                <li>Quantity:
-                    <input
-                            th:name="|productList[${varStatus.index}].quantity|"
-                            th:value="${line.quantity}" />
-                </li>
-                <li>Price:
-                    <span class="price"
-                          th:utext="${#numbers.formatDecimal(line.product.price,3,2,'COMMA')}">
+    <div
+            th:each="line, varStatus : ${cartForm.productList}">
+        <ul>
+            <li><img class="product-image"
+                     th:src="@{|/productImage?id=${line.product.id}|}"/>
+            </li>
+            <li>Id: <span th:utext="${line.product.id}"></span></li>
+            <li>Name: <span th:utext="${line.product.name}"></span></li>
+            <li>Quantity:
+                <input
+                        th:name="|productList[${varStatus.index}].quantity|"
+                        th:value="${line.quantity}"/>
+                </form>
+            </li>
+            <li>Price:
+                <span class="price"
+                      th:utext="${#numbers.formatDecimal(line.price,3,2,'COMMA')}">
                         </span>
-                </li>
-                <li>
-                    <a th:href="@{|/products/${line.product.id}/remove|}">
-                        Delete
-                    </a>
-                </li>
-            </ul>
-        </div>
+            </li>
+            <li>
+                <a th:href="@{|/products/${line.product.id}/remove|}">
+                    Delete
+                </a>
+            </li>
+        </ul>
+    </div>
 
 </th:block>
 </body>
