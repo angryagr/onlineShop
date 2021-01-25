@@ -26,6 +26,18 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping({"/sortAsc"})
+    public String sortAscending( Model model) {
+        model.addAttribute("products", productService.sortByPriceAsc());
+        return "products";
+    }
+
+    @GetMapping({"/sortDsc"})
+    public String sortDescending( Model model) {
+        model.addAttribute("products", productService.sortByPriceDesc());
+        return "products";
+    }
+
     @GetMapping({"/{id}/buy"})
     public String buyProduct(@PathVariable long id, HttpServletRequest request, Model model) {
         Product product = productService.readById(id);
@@ -39,13 +51,4 @@ public class ProductController {
         return "redirect:/cart/show";
     }
 
-    @GetMapping({"/{id}/remove"})
-    public String deleteProduct(@PathVariable long id, HttpServletRequest request) {
-        Product product = productService.readById(id);
-        if (product != null) {
-            ShoppingCart cart = Utils.getCartInSession(request);
-            cart.removeProduct(product);
-        }
-            return "redirect:/cart/show";
-        }
-    }
+}

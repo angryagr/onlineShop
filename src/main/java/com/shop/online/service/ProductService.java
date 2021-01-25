@@ -8,4 +8,6 @@ public interface ProductService {
     List<Product> getAll();
     void delete(long id);
     Product readById(long id);
+    List<Product> sortByPriceAsc();
+    List<Product> sortByPriceDesc();
 }

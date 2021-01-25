@@ -23,7 +23,7 @@ public class ShoppingCart {
 
     public void addProduct(Product product, int quantity) {
         CartLine cartLine = findLineById(product.getId());
-        if (cartLine==null) {
+        if (cartLine == null) {
             cartLine = new CartLine();
             cartLine.setProduct(product);
             cartLine.setQuantity(0);
@@ -36,19 +36,23 @@ public class ShoppingCart {
             removeProduct(product);
         } else {
             cartLine.setQuantity(newQuantity);
-            cartLine.setPrice(product.getPrice()*newQuantity);
+            cartLine.setPrice(product.getPrice() * newQuantity);
         }
     }
 
     public void removeProduct(Product product) {
-       CartLine cartLine = findLineById(product.getId());
-       if(cartLine!=null) {
-           productList.remove(cartLine);
-       }
+        CartLine cartLine = findLineById(product.getId());
+        if (cartLine != null) {
+            productList.remove(cartLine);
+        }
     }
 
     public boolean isEmpty() {
         return productList.isEmpty();
+    }
+
+    public double getPriceTotal() {
+        return productList.stream().mapToDouble(CartLine::getPrice).sum();
     }
 
     public double getAmountTotal() {

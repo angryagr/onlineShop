@@ -59,4 +59,25 @@ public class ProductServiceImpl implements ProductService {
         }
         throw new EntityNotFoundException("Product with id " + id + " not found");
     }
+
+    /**
+     * Returns list of all existing products sorted by price in ascending order
+     *
+     * @return <code> @link #List<@link #Product></code>
+     */
+    @Override
+    public List<Product> sortByPriceAsc() {
+        return productDao.findByOrderByPrice();
+    }
+
+    /**
+     * Returns list of all existing products sorted by price in descending order
+     *
+     * @return <code> @link #List<@link #Product></code>
+     */
+    @Override
+    public List<Product> sortByPriceDesc() {
+        return productDao.findByOrderByPriceDesc();
+    }
+
 }
