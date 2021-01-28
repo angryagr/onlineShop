@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <meta charset="UTF-8">
@@ -10,30 +10,35 @@
 <div th:replace="menu"></div>
 
 
-<div class="container col-md-offset-2">
+<div class="container col-md-offset-2 col-sm-8">
     <h2>Products</h2>
     <br>
-    <div class="pull-right">
+
         <span>Show first:</span>
         <a th:href="@{|/products/sortAsc|}">Cheap</a>
 
         <a th:href="@{|/products/sortDsc|}">Expensive</a>
-    </div>
+
     <br>
     <br>
-    <div class="row col-lg-6 col-sm-6" th:each="product : ${products}">
+<table class="table table-bordered">
+<tr>
+    <div th:each="product : ${products}">
+        <th>
         <ul>
             <li><img th:src="@{|/product.image?id=${product.id}|}"/></li>
             <li>Code: <span th:utext="${product.id}"></span></li>
             <li>Name: <span th:utext="${product.name}"></span></li>
             <li>Price: <span th:utext="${#numbers.formatDecimal(product.price,3,2,'COMMA')}"></span></li>
             <li>Description: <span th:utext="${product.description}"></span></li>
-            <li>
-                <a th:href="@{|/products/${product.id}/buy|}">Buy Now</a>
-            </li>
-        </ul>
-    </div>
+            <a th:href="@{|/products/${product.id}/buy|}">Buy Now</a>
 
+        </ul>
+        </th>
+    </div>
+</tr>
+</table>
+</div>
 </div>
 </body>
 </html>

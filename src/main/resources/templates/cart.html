@@ -21,8 +21,7 @@
     <div class="container col-md-offset-2">
         <h2>Cart</h2>
         <br/>
-        <div class="row col-lg-6 col-sm-6"
-             th:each="line, varStatus : ${cartForm.productList}">
+        <div th:each="line, varStatus : ${cartForm.productList}">
             <ul>
                 <li><img class="product-image"
                          th:src="@{|/productImage?id=${line.product.id}|}"/>
