@@ -18,9 +18,7 @@ public class Product {
     private double price;
     @Column(name = "description", nullable = true)
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+
 
     public long getId() {
         return id;
@@ -52,14 +50,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public byte[] getImage() {

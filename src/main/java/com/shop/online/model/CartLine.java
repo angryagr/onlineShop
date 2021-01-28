@@ -1,9 +1,23 @@
 package com.shop.online.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "cartLines")
 public class CartLine {
-    private Product product;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(name = "quantity", nullable = true)
     private int quantity;
+    @Column(name = "price", nullable = true)
     private double price;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     public CartLine() {
         this.quantity = 0;
@@ -35,5 +49,13 @@ public class CartLine {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

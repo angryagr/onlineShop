@@ -3,6 +3,7 @@ package com.shop.online.service;
 import com.shop.online.dao.OrderDao;
 import com.shop.online.exception.NullEntityReferenceException;
 import com.shop.online.model.Order;
+import com.shop.online.model.ShoppingCart;
 import com.shop.online.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityNotFoundException;
@@ -30,12 +32,14 @@ public class OrderServiceTest {
     private List<Order> expectedList;
     private Order expectedOrder;
     private Order orderToDelete;
+    private ShoppingCart cart;
 
     @BeforeEach
     public void prepare() {
         expectedList = mock(List.class);
         expectedOrder = mock(Order.class);
         orderToDelete = mock(Order.class);
+        cart = mock(ShoppingCart.class);
 
         when(orderDao.findAll()).thenReturn(expectedList);
 
@@ -46,6 +50,20 @@ public class OrderServiceTest {
         when(orderDao.save(null)).thenThrow(new NullEntityReferenceException("Order cannot be 'null'"));
 
         doThrow(new NullEntityReferenceException("Order cannot be 'null'")).when(orderDao).delete(orderToDelete);
+
+    }
+
+    @Test
+    public void shouldSaveOrderWhenCartExists() {
+        sut.save(cart);
+        verify(orderDao, times(1)).save(Mockito.any());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenCartIsNull() {
+        Assertions.assertThrows(NullEntityReferenceException.class, () -> {
+            sut.save(null);
+        });
 
     }
 
@@ -63,7 +81,7 @@ public class OrderServiceTest {
 
     @Test
     public void shouldThrowExceptionIfIdNotExists() {
-        Assertions.assertThrows(EntityNotFoundException.class, ()-> sut.readById(8L));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> sut.readById(8L));
     }
 
     @Test
@@ -74,7 +92,7 @@ public class OrderServiceTest {
 
     @Test
     public void shouldThrowExceptionIfOrderToUpdateIsNull() {
-        Assertions.assertThrows(NullEntityReferenceException.class, ()->sut.update(null));
+        Assertions.assertThrows(NullEntityReferenceException.class, () -> sut.update(null));
     }
 
     @Test

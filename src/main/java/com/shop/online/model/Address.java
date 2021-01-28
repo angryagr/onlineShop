@@ -26,7 +26,7 @@ public class Address {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "addressList")
+    @OneToMany(mappedBy = "address")
     private List<User> userList;
 
     @OneToOne(mappedBy = "billingAddress")

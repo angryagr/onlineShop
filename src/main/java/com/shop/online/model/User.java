@@ -1,9 +1,8 @@
 package com.shop.online.model;
 
-import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -28,11 +27,9 @@ public class User {
     private String password;
     @Column(name = "phone", nullable = false)
     private String phone;
-    @ManyToMany
-    @JoinTable(name = "user_address",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id"))
-    private List<Address> addressList;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Order> orderList;
 
@@ -83,12 +80,12 @@ public class User {
         this.phone = phone;
     }
 
-    public List<Address> getAddressList() {
-        return addressList;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Set<Order> getOrderList() {

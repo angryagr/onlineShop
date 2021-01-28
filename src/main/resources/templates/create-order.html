@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title> Order</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<div th:replace="menu"></div>
+
+
+<br/>
+<br/>
+<div class="customer-info-container">
+    <h3>Customer information:</h3>
+    <!-- <ul>
+         <li>Name: <span th:utext="${cart.user.firstName}"></span></li>
+         <li>Name: <span th:utext="${cart.user.lastName}"></span></li>
+         <li>Email: <span th:utext="${cart.user.email}"></span></li>
+         <li>Phone: <span th:utext="${cart.user.phone}"></span></li>
+         <li>Address: <span th:utext="${cart.user.address}"></span></li>
+     </ul>-->
+
+</div>
+<h3>Your order</h3>
+
+<form method="POST" th:action="@{/orders/create}">
+    <p> Total quantity:
+        <span class="totalQuantity"
+              th:text="${cart.getQuantityTotal()}">
+        </span></p>
+    <p> Total price:
+        <span class="totalPrice"
+              th:text="${#numbers.formatDecimal(cart.getPriceTotal(),3,2,'COMMA')}">
+        </span></p>
+    <input type="submit" value="Order"/>
+    <a class="navi-item" th:href="@{/cart/show}">
+        Edit Order
+    </a>
+</form>
+</div>
+</body>
+</html>

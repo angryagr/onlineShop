@@ -1,6 +1,7 @@
 package com.shop.online.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -13,22 +14,17 @@ public class Order {
     private long id;
     @Column(name = "order_date", nullable = false)
     private LocalDate date;
+    @NotNull(message = "The 'sum' cannot be empty")
     @Column(name = "end_sum", nullable = false)
     private double sum;
-    @Column(name = "order_status")
+    @Column(name = "order_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bill_id")
-    private Bill bill;
-    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address billingAddress;
-    /*@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
-    private Address deliveryAddress;*/
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> productList;
+    private List<CartLine> productList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
@@ -69,14 +65,6 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
-
     public Address getBillingAddress() {
         return billingAddress;
     }
@@ -85,19 +73,11 @@ public class Order {
         this.billingAddress = billingAddress;
     }
 
-/*    public Address getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(Address deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }*/
-
-    public List<Product> getProductList() {
+    public List<CartLine> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(List<CartLine> productList) {
         this.productList = productList;
     }
 
@@ -118,13 +98,12 @@ public class Order {
                 Double.compare(order.sum, sum) == 0 &&
                 Objects.equals(date, order.date) &&
                 orderStatus == order.orderStatus &&
-                Objects.equals(bill, order.bill) &&
                 Objects.equals(billingAddress, order.billingAddress) &&
                 Objects.equals(user, order.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, sum, orderStatus, bill, billingAddress, user);
+        return Objects.hash(id, date, sum, orderStatus, billingAddress, user);
     }
 }

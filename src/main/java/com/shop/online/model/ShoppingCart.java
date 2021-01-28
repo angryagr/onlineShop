@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class ShoppingCart {
-    private long id;
+    private long orderNum;
     private User user;
     private final List<CartLine> productList = new ArrayList<>();
 
@@ -59,12 +59,8 @@ public class ShoppingCart {
         return productList.stream().mapToDouble(CartLine::getAmount).sum();
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public int getQuantityTotal() {
+        return productList.stream().mapToInt(CartLine::getQuantity).sum();
     }
 
     public User getUser() {
@@ -79,4 +75,11 @@ public class ShoppingCart {
         return productList;
     }
 
+    public long getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(long orderNum) {
+        this.orderNum = orderNum;
+    }
 }

@@ -27,7 +27,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="sum">Sum:</label>
                 <div class="col-sm-8">
-                    <input class="form-control" th:field="*{sum}" th:value="*{sum}" id="sum" type="text"/>
+                    <input class="form-control" th:field="*{sum}" th:value="*{sum}" id="sum" type="number"/>
+                    <small class="form-text text-muted" th:if="${#fields.hasErrors('sum')}" th:errors="*{sum}"></small>
                 </div>
             </div>
             <div class="form-group">

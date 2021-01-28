@@ -2,12 +2,13 @@ package com.shop.online.service.impl;
 
 import com.shop.online.dao.OrderDao;
 import com.shop.online.exception.NullEntityReferenceException;
-import com.shop.online.model.Order;
+import com.shop.online.model.*;
 import com.shop.online.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,13 +20,37 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     /**
+     * Saves order object and sets its id to cart
+     *
+     * @param cart ShoppingCart which provides information for creation of order object
+     */
+    @Override
+    public void save(ShoppingCart cart) {
+        if (cart != null) {
+            Order order = new Order();
+            order.setDate(LocalDate.now());
+            order.setOrderStatus(OrderStatus.NEW);
+            order.setSum(cart.getPriceTotal());
+//TODO user creation form
+            //order.setUser(cart.getUser());
+            //order.setBillingAddress(cart.getUser().getAddress());
+
+            order.setProductList(cart.getProductList());
+            orderDao.save(order);
+            cart.setOrderNum(order.getId());
+        } else {
+            throw new NullEntityReferenceException("ShoppingCart cannot be 'null'");
+        }
+    }
+
+    /**
      * Returns list of all existing orders or empty list
      *
      * @return <code> @link #List<@link #Order></code>
      */
     @Override
     public List<Order> getAll() {
-       List<Order> orders = orderDao.findAll();
+        List<Order> orders = orderDao.findAll();
         return orders.isEmpty() ? new ArrayList<>() : orders;
     }
 
