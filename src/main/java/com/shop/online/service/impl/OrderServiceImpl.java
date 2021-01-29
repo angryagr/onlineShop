@@ -31,10 +31,6 @@ public class OrderServiceImpl implements OrderService {
             order.setDate(LocalDate.now());
             order.setOrderStatus(OrderStatus.NEW);
             order.setSum(cart.getPriceTotal());
-//TODO user creation form
-            //order.setUser(cart.getUser());
-            //order.setBillingAddress(cart.getUser().getAddress());
-
             order.setProductList(cart.getProductList());
             orderDao.save(order);
             cart.setOrderNum(order.getId());
